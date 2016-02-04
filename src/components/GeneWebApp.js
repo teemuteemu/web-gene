@@ -6,8 +6,8 @@ require('normalize.css')
 
 import Algorithm from '../genes/Algorithm.js'
 
-const solution = 'sometimes short lines are slower'
-const populationSize = solution.length
+const solution = 'testing the awesome shit...'
+const populationSize = Math.max(100, solution.length)
 
 const algo = new Algorithm(populationSize, solution)
 
@@ -32,7 +32,7 @@ const GeneWebApp = React.createClass({
   render: function () {
     return (
       <div className='main'>
-        <p>foo</p>
+        <p>open the js console...</p>
       </div>
     )
   }

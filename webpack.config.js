@@ -39,7 +39,7 @@ module.exports = {
     preLoaders: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
-      loader: 'jsxhint'
+      loader: 'standard'
     }],
     loaders: [{
       test: /\.(js|jsx)$/,
