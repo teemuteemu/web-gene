@@ -1,6 +1,10 @@
-import Individual from './Individual.js'
+'use strict'
 
-export default class Population {
+// import Individual from './Individual.js'
+
+const Individual = require('./Individual.js')
+
+class Population {
   constructor (size, solution) {
     this.individuals = Array.from(Array(size).keys()).map((i) => { return new Individual(solution) })
   }
@@ -34,3 +38,5 @@ export default class Population {
     return this.individuals.length
   }
 }
+
+module.exports = Population

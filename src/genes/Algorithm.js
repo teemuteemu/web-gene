@@ -1,10 +1,15 @@
-import Population from './Population.js'
-import Individual from './Individual.js'
+'use strict'
+
+// import Population from './Population.js'
+// import Individual from './Individual.js'
+
+const Population = require('./Population.js')
+const Individual = require('./Individual.js')
 
 const uniformRate = 0.5
 const mutationRate = 0.015
 
-export default class Algorithm {
+class Algorithm {
   constructor (populationSize, solution) {
     this.solution = solution
     this.population = new Population(populationSize, this.solution)
@@ -13,7 +18,8 @@ export default class Algorithm {
   }
 
   optimum () {
-    return this.population.getFittest().getFitness() === this.solution.length
+    const fittestSolution = this.population.getFittest().getOutput()
+    return fittestSolution.join('') === this.solution.join('')
   }
 
   step () {
@@ -68,13 +74,24 @@ export default class Algorithm {
   }
 
   mutate (individual) {
-    individual.genes = individual.genes.map((gene, i) => {
-      if (Math.random() <= mutationRate) {
-        return individual.generateRandomGene()
-      } else {
-        return gene
-      }
-    })
+    const rnd = Math.random()
+
+    if (rnd <= 0.3) {
+      individual.genes.unshift(individual.generateRandomGene())
+    } else if (rnd > 0.3 && rnd <= 0.7) {
+      individual.genes.push(individual.generateRandomGene())
+    } else {
+      individual.genes = individual.genes.map((gene, i) => {
+        if (Math.random() <= mutationRate) {
+          return individual.generateRandomGene()
+        } else {
+          return gene
+        }
+      })
+    }
+
     return individual
   }
 }
+
+module.exports = Algorithm

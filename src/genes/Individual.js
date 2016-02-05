@@ -1,14 +1,17 @@
-export default class Individual {
+'use strict'
+
+const brainfuck = require('brainfuck-javascript')
+
+class Individual {
   constructor (solution) {
-    if (typeof solution === 'string') {
-      solution = solution.split('')
-    }
     this.solution = solution
-    this.genes = Array.from(Array(this.solution.length).keys()).map((i) => { return this.generateRandomGene() })
+    const genesLength = 1 + Math.ceil(Math.random() * 10)
+    this.genes = Array.from(Array(genesLength).keys()).map((i) => { return this.generateRandomGene() })
   }
 
   generateRandomGene () {
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ,.!'?"
+    // const possible = '<>+-.,[]'
+    const possible = '+-.'
     return possible.charAt(Math.floor(Math.random() * possible.length))
   }
 
@@ -20,21 +23,34 @@ export default class Individual {
     this.genes[index] = val
   }
 
-  mutateGene (index) {
-    this.genes[index] = this.generateRandomGene()
+  getOutput () {
+    const bfCode = this.genes.join('')
+    const bfOutput = brainfuck(bfCode)
+    return bfOutput
   }
 
   getFitness () {
     let fitness = 0
-    this.genes.forEach((gene, i) => {
-      if (gene === this.solution[i]) {
+    const output = this.getOutput()
+
+    if (output.length === this.solution.length) {
+      fitness++
+    }
+
+    output.forEach((out, i) => {
+      if (out === this.solution[i]) {
         fitness++
       }
     })
+
     return fitness
   }
 
   toString () {
-    return this.genes.join('')
+    const bfCode = this.genes.join('')
+    const bfOutput = this.getOutput()
+    return `'${bfCode}' = [${bfOutput}]`
   }
 }
+
+module.exports = Individual
