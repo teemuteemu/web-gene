@@ -4,9 +4,12 @@ import React from 'react'
 
 require('normalize.css')
 
-const run = require('../genes/main.js')
+const gene = require('../genes/main.js')
 
-run()
+const solution = [10, 2]
+const populationSize = 100
+
+gene.run(solution, populationSize)
 
 const GeneWebApp = React.createClass({
   render: function () {

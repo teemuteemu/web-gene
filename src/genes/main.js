@@ -1,25 +1,31 @@
-// import Algorithm from './Algorithm.js'
+const Worker = require('worker!./worker.js')
+const worker = new Worker()
 
-const Algorithm = require('./Algorithm.js')
+const gene = {
+  run: (solution, populationSize) => {
+    const cmd = {
+      cmd: 'run',
+      solution: solution,
+      populationSize: populationSize
+    }
 
-const solution = [10, 2, 1]
-const populationSize = 100
+    worker.onmessage = (params) => {
+      if (params.data.cmd === 'progress') {
+        console.log('-------------------------------------')
+        console.log(`Generation: ${params.data.generation}, fittest: ${params.data.fittest.fitness}`)
+        console.log(`${params.data.fittest.solution}`)
+      }
 
-const algo = new Algorithm(populationSize, solution)
+      if (params.data.cmd === 'end') {
+        console.log('#####################################')
+        console.log('Found solution!')
+        console.log(`Generation: ${params.data.generation}, fittest: ${params.data.fittest.fitness}`)
+        console.log(`${params.data.fittest.solution}`)
+      }
+    }
 
-function run () {
-  algo.step()
-  if (!algo.optimum()) {
-    console.log('-------------------------------------')
-    console.log(`Generation: ${algo.generationCount}, fittest: ${algo.population.getFittest().getFitness()}`)
-    console.log(`${algo.population.getFittest().toString()}`)
-    setTimeout(run, 10)
-  } else {
-    console.log('=====================================')
-    console.log('Found solution!')
-    console.log(`Generation: ${algo.generationCount}, fittest: ${algo.population.getFittest().getFitness()}`)
-    console.log(`${algo.population.getFittest().toString()}`)
+    worker.postMessage(cmd)
   }
 }
 
-module.exports = run
+module.exports = gene
