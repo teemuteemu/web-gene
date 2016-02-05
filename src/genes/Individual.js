@@ -5,13 +5,13 @@ const brainfuck = require('brainfuck-javascript')
 class Individual {
   constructor (solution) {
     this.solution = solution
-    const genesLength = 1 + Math.ceil(Math.random() * 10)
+    const genesLength = 1 + Math.ceil(Math.random() * 100)
     this.genes = Array.from(Array(genesLength).keys()).map((i) => { return this.generateRandomGene() })
   }
 
   generateRandomGene () {
     // const possible = '<>+-.,[]'
-    const possible = '+-.'
+    const possible = '<>+-.,'
     return possible.charAt(Math.floor(Math.random() * possible.length))
   }
 
@@ -35,13 +35,11 @@ class Individual {
 
     if (output.length === this.solution.length) {
       fitness++
+      output.forEach((out, i) => {
+        const difference = Math.abs(out - this.solution[i])
+        fitness = fitness + (this.solution[i] - difference)
+      })
     }
-
-    output.forEach((out, i) => {
-      if (out === this.solution[i]) {
-        fitness++
-      }
-    })
 
     return fitness
   }

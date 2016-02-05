@@ -2,8 +2,8 @@
 
 const Algorithm = require('./Algorithm.js')
 
-const solution = [3] // '+++.'
-const populationSize = 20
+const solution = [10, 2, 1]
+const populationSize = 100
 
 const algo = new Algorithm(populationSize, solution)
 
@@ -13,7 +13,7 @@ function run () {
     console.log('-------------------------------------')
     console.log(`Generation: ${algo.generationCount}, fittest: ${algo.population.getFittest().getFitness()}`)
     console.log(`${algo.population.getFittest().toString()}`)
-    setTimeout(run, 100)
+    setTimeout(run, 10)
   } else {
     console.log('=====================================')
     console.log('Found solution!')
