@@ -1,8 +1,5 @@
 'use strict'
 
-// import Population from './Population.js'
-// import Individual from './Individual.js'
-
 const Population = require('./Population.js')
 const Individual = require('./Individual.js')
 

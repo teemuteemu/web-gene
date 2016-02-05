@@ -6,7 +6,7 @@ require('normalize.css')
 
 const gene = require('../genes/main.js')
 
-const solution = [10, 2]
+const solution = [11, 12, 9]
 const populationSize = 100
 
 gene.run(solution, populationSize)
