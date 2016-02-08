@@ -4,29 +4,12 @@ import React from 'react'
 
 require('normalize.css')
 
-import Algorithm from '../genes/Algorithm.js'
+const gene = require('../genes/main.js')
 
-const solution = 'testing the awesome shit...'
-const populationSize = Math.max(100, solution.length)
+const solution = 'testing'
+const populationSize = 100
 
-const algo = new Algorithm(populationSize, solution)
-
-const run = () => {
-  algo.step()
-  if (!algo.optimum()) {
-    console.log('-------------------------------------')
-    console.log(`Generation: ${algo.generationCount}, fittest: ${algo.population.getFittest().getFitness()}`)
-    console.log(`${algo.population.getFittest().toString()}`)
-    setTimeout(run, 0)
-  } else {
-    console.log('=====================================')
-    console.log('Found solution!')
-    console.log(`Generation: ${algo.generationCount}, fittest: ${algo.population.getFittest().getFitness()}`)
-    console.log(`${algo.population.getFittest().toString()}`)
-  }
-}
-
-run()
+gene.run(solution, populationSize)
 
 const GeneWebApp = React.createClass({
   render: function () {
