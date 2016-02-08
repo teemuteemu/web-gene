@@ -43,6 +43,7 @@ export default class Algorithm {
   tournament (population) {
     const tournamentSize = Math.max(3, Math.floor(this.population.size() / 10))
     const tournamenPopulation = new Population(tournamentSize, this.solution)
+
     tournamenPopulation.individuals.forEach((individual, i) => {
       tournamenPopulation.setIndividual(i, this.population.getRandomIndividual())
     })
@@ -75,6 +76,7 @@ export default class Algorithm {
         return gene
       }
     })
+
     return individual
   }
 }

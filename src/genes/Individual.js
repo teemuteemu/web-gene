@@ -20,10 +20,6 @@ export default class Individual {
     this.genes[index] = val
   }
 
-  mutateGene (index) {
-    this.genes[index] = this.generateRandomGene()
-  }
-
   getFitness () {
     let fitness = 0
     this.genes.forEach((gene, i) => {
