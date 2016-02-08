@@ -8,11 +8,11 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     files: [
       'test/helpers/**/*.js',
-      'test/spec/components/**/*.js'
+      'test/spec/**/*.js'
     ],
     preprocessors: {
-      'test/spec/components/**/*.js': ['webpack'],
-      'test/spec/components/**/*.jsx': ['webpack']
+      'test/spec/**/*.js': ['webpack'],
+      'test/spec/**/*.jsx': ['webpack']
     },
     webpack: {
       cache: true,
@@ -43,7 +43,8 @@ module.exports = function (config) {
       resolve: {
         alias: {
           'styles': path.join(process.cwd(), './src/styles/'),
-          'components': path.join(process.cwd(), './src/components/')
+          'components': path.join(process.cwd(), './src/components/'),
+          'src': path.join(process.cwd(), './src/')
         }
       }
     },
@@ -65,7 +66,7 @@ module.exports = function (config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     reporters: ['progress'],
     captureTimeout: 60000,
     singleRun: true
