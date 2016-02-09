@@ -25,8 +25,8 @@ export default class Algorithm {
     const newPopulation = new Population(this.population.size(), this.solution)
 
     this.population.individuals.forEach((individual, i) => {
-      const selected1 = this.tournament(this.population, this.solution)
-      const selected2 = this.tournament(this.population, this.solution)
+      const selected1 = this.tournamentSelection()
+      const selected2 = this.tournamentSelection()
 
       const newIndividual = this.crossover(selected1, selected2)
 
@@ -40,8 +40,8 @@ export default class Algorithm {
     return newPopulation
   }
 
-  tournament (population) {
-    const tournamentSize = Math.max(3, Math.floor(this.population.size() / 10))
+  tournamentSelection () {
+    const tournamentSize = Math.max(2, Math.floor(this.population.size() / 10))
     const tournamenPopulation = new Population(tournamentSize, this.solution)
 
     tournamenPopulation.individuals.forEach((individual, i) => {
