@@ -1,26 +1,27 @@
 'use strict'
 
 import React from 'react'
+import ReactDOM from 'react-dom'
+
+import GeneInterfaceComponent from './GeneInterfaceComponent.js'
 
 require('normalize.css')
+require('styles/main.css')
 
-const WebGene = require('../webgene/main.js')
+class GeneWebApp extends React.Component {
+  constructor () {
+    super()
+  }
 
-const solution = 'testing'
-const populationSize = 100
-
-WebGene.run(solution, populationSize)
-
-const GeneWebApp = React.createClass({
-  render: function () {
+  render () {
     return (
       <div className='main'>
-        <p>open the js console...</p>
+        <GeneInterfaceComponent />
       </div>
     )
   }
-})
+}
 
-React.render(<GeneWebApp />, document.getElementById('content')) // jshint ignore:line
+ReactDOM.render(<GeneWebApp />, document.getElementById('content')) // jshint ignore:line
 
 module.exports = GeneWebApp

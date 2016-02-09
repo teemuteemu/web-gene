@@ -1,5 +1,14 @@
 const Worker = require('worker!./Worker.js')
 const worker = new Worker()
+const callbacks = {}
+
+worker.onmessage = (params) => {
+  const command = params.data.cmd
+
+  if (callbacks.hasOwnProperty(command)) {
+    callbacks[command](params.data)
+  }
+}
 
 const gene = {
   run: (solution, populationSize) => {
@@ -7,25 +16,14 @@ const gene = {
       cmd: 'run',
       solution: solution,
       populationSize: populationSize
-    }
-
-    worker.onmessage = (params) => {
-      if (params.data.cmd === 'progress') {
-        console.log('-------------------------------------')
-        console.log(`Generation: ${params.data.generation}, fittest: ${params.data.fittest.fitness}`)
-        console.log(`${params.data.fittest.solution}`)
-      }
-
-      if (params.data.cmd === 'end') {
-        console.log('#####################################')
-        console.log('Found solution!')
-        console.log(`Generation: ${params.data.generation}, fittest: ${params.data.fittest.fitness}`)
-        console.log(`${params.data.fittest.solution}`)
-        worker.terminate()
-      }
+      // updateFreq: 5
     }
 
     worker.postMessage(cmd)
+  },
+
+  on: (message, handler) => {
+    callbacks[message] = handler
   }
 }
 
