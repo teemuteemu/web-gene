@@ -1,5 +1,5 @@
-const Population = require('src/genes/Population.js')
-const Individual = require('src/genes/Individual.js')
+const Population = require('src/webgene/Population.js')
+const Individual = require('src/webgene/Individual.js')
 
 describe ('Population', () => {
   let testSolution

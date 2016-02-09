@@ -1,4 +1,4 @@
-const Individual = require('src/genes/Individual.js')
+const Individual = require('src/webgene/Individual.js')
 
 describe ('Individual', () => {
   let testSolution
